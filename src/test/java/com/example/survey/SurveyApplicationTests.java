@@ -26,8 +26,9 @@ class SurveyApplicationTests {
 	public void creatSurvey() {
 		LocalDate startday= LocalDate.now();
 		LocalDate endday=startday.plusDays(7);
-		
-		Survey survey = new Survey("調皮問卷","很調皮",false,startday,endday);
+		//標題 DESC 發布 ST ED
+		Survey survey = new Survey("11/23","恩恩",false,startday,endday);
+		//題號  問卷id 問題 類型 必須  選項
 		SurveyQuestion surveyQuestion = new SurveyQuestion(1,5,"調皮?","單選題",false,"才不;很調皮;"); 
 		List<SurveyQuestion> surveyQuestionList = new ArrayList<>(); 
 		surveyQuestionList.add(surveyQuestion);
@@ -47,12 +48,28 @@ class SurveyApplicationTests {
 		SurveyQuestion surveyQuestion = new SurveyQuestion(1,4,"日期也被改了","修改後類型",false,"修改後選項"); 
 		//(id,q_id,q_title,q_type,necessary,options)
 		surveyQuestionList.add(surveyQuestion);
-		surveyQuestionList.add(new SurveyQuestion(2,4,"日期已改","修改類型",false,"修改選項"));
+		surveyQuestionList.add(new SurveyQuestion(2,4,"日期還能改","修改類型",false,"修改選項"));
 		RequestSurvey req= new RequestSurvey(survey,surveyQuestionList);
 		surveyService.updateSurvey(req);
 	}
 	@Test
 	public void searchSurvey() {
-		surveyService.search("哭", null, null);
+		LocalDate st = LocalDate.of(2023, 11, 17);
+		LocalDate ed = LocalDate.of(2023, 11, 24);
+		surveyService.search("問卷",st, ed);
+	}
+	@Test
+	public void deleteSurvey() {
+		List<Integer> delTarget= new ArrayList<>();
+		delTarget.add(5);
+		
+		surveyService.deleteSurvey(delTarget);
+	}
+	
+	@Test
+	public void searchSurveyList() {
+		LocalDate startday = LocalDate.now().plusDays(2);
+		LocalDate endday = startday.plusDays(7);
+		surveyService.searchSurveyList("", null, endday, false);
 	}
 }

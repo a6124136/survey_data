@@ -6,6 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Table(name="survey_questions")
 @Entity
 @IdClass(value=SurveyQuestionId.class)

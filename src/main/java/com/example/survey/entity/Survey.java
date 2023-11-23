@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Table(name="survey_title")
 @Entity
 //@IdClass(value=SurveyId.class) //value 保管ID.class
@@ -24,11 +29,14 @@ public class Survey {
 	private String description;
 	@Column(name="status_is_published")  
 	private boolean published;  //命名布林值不要包含is 會有衝突
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name="start_date")
 	private LocalDate startdate;  //日期資料型態用LocalDate  包含日期時間的改LocalDayTime
+	@JsonFormat(pattern="yyyy-MM-dd")
 	@Column(name="end_date")
 	private LocalDate enddate;
 	
+	//你媽的  沒註解@JsonFormat 讀取不到yyyy-MM-dd的格式欸機掰
 	
 	
 	public Survey() {
